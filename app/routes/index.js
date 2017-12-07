@@ -41,8 +41,8 @@ router.post('/register', function(req, res, next) {
 		res.redirect('/');
 	}else{
 
-		// Check if the username already exists for non-social account
-		User.findOne({'username': new RegExp('^' + req.body.username + '$', 'i'), 'socialId': null}, function(err, user){
+		// Check if the username already exists for account
+		User.findOne({'username': new RegExp('^' + req.body.username + '$', 'i')}, function(err, user){
 			if(err) throw err;
 			if(user){
 				req.flash('error', 'Username already exists.');
@@ -58,6 +58,29 @@ router.post('/register', function(req, res, next) {
 		});
 	}
 });
+
+router.post('/updateUser', function(req, res, next) {
+
+	
+	if(req.body.username === '' && req.body.email === '' )	res.redirect('/myprofile');
+	else{
+		if(req.body.username != '' && req.body.email != ''){
+			var credentials = {'username': req.body.username, 'email': req.body.email};
+		}
+		else if(req.body.username != ''){
+			var credentials = {'username': req.body.username};
+		}
+		else if(req.body.email != ''){
+			var credentials = {'email': req.body.email};
+		}
+		
+		User.findByIdAndUpdate(req.user.id,credentials,function(err,user){
+			if(err) throw err;
+			res.redirect('/myprofile');
+		})
+	}
+});
+
 // Rooms
 router.get('/rooms', [User.isAuthenticated, function(req, res, next) {
 	Room.find(function(err, rooms){
@@ -67,6 +90,16 @@ router.get('/rooms', [User.isAuthenticated, function(req, res, next) {
 			res.render('rooms', { rooms, users });
 		});
 	});
+}]);
+
+// Myprofile
+router.get('/myprofile', [User.isAuthenticated, function(req, res, next) {
+	
+	User.findById(req.user.id,function(err, users){
+		if(err) throw err;
+		res.render('profile', { user: req.user });
+	});
+	
 }]);
 
 // Chat Room 

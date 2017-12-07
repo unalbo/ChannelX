@@ -9,7 +9,7 @@
   <body>
     <div class="container clearfix" style="width: 600px;">
       <div class="controls" style="border: none; width: 100%;">
-          <a href="/logout" class="logout-btn" style="width: auto; padding: 13px; font-size: 12px; float:left;">My Profile</a>
+          <a href="/rooms" class="rooms-btn" style="width: auto; padding: 13px; font-size: 12px; float:left;">Rooms</a>
           <a href="/logout" class="logout-btn" style="width: auto; padding: 13px; font-size: 12px;">Logout</a>
       </div>
 
@@ -31,7 +31,26 @@
           <button class="period-button">Picture</button>
         </div> <!-- end room-create -->
 
+
     </div> <!-- end container -->
+    <div>
+
+      <div class="username">Username: <%= user.username %></div>
+      <div class="username">Email: <%= user.email %></div>
+
+
+    </div>
+    <div>
+
+        <form action="/updateUser" class="update-form" method="post" >
+          <input type="text" name="username" placeholder="new username"/>
+          <input type="text" name="email" placeholder="new e-mail"/>
+          <button type="submit">Update</button>
+          
+        </form>
+
+
+    </div>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/main.js"></script>
