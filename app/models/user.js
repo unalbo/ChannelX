@@ -41,8 +41,6 @@ var findById = function (id, callback){
 }
 
 var findByIdAndUpdate = function(id, data, callback){
-	console.log(data);
-	console.log(id);
 	userModel.findByIdAndUpdate(id, data,{ new: true }, callback);
 }
 
