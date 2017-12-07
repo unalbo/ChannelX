@@ -3,6 +3,7 @@
 var config 	= require('../config');
 var redis 	= require('redis').createClient;
 var adapter = require('socket.io-redis');
+var randomString = require('random-string');
 
 var Room = require('../models/room');
 
@@ -22,9 +23,11 @@ var ioEvents = function(io) {
 				if(room){
 					socket.emit('updateRoomsList', { error: 'Room title already exists.' });
 				} else {
+					var verificationCode = randomString();
 					Room.create({ 
 						title: title,
-						ownerID: ownerID
+						ownerID: ownerID,
+						verificationCode: verificationCode
 					}, function(err, newRoom){
 						if(err) throw err;
 						socket.emit('updateRoomsList', newRoom);

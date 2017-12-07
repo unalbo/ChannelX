@@ -9,11 +9,11 @@ var Mongoose  = require('mongoose');
  */
 var RoomSchema = new Mongoose.Schema({
     timeID:      [Mongoose.Schema.Types.ObjectId],
-    //ownerID:     { type: Mongoose.Schema.Types.ObjectId, required: true},
-    ownerID: {type:String, required: true},
+    ownerID:     { type: Mongoose.Schema.Types.ObjectId, required: true},
     title:       { type: String, required: true },
     connections: { type: [{ userId: String, socketId: String }]},
-    userID: [Mongoose.Schema.Types.ObjectId]
+    userID: [Mongoose.Schema.Types.ObjectId],
+    verificationCode: { type: String, required: true }
 });
 
 var roomModel = Mongoose.model('room', RoomSchema);
