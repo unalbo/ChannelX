@@ -8,10 +8,10 @@ var Mongoose  = require('mongoose');
  *
  */
 var MessageSchema = new Mongoose.Schema({
-    ChannelID:   { type: Schema.Types.ObjectId, required: true },
-    SenderID:    { type: Schema.Types.ObjectId, required: true },
+    ChannelID:   { type: Mongoose.Schema.Types.ObjectId, required: true },
+    SenderName:    { type: String, required: true },
     message:     { type: String, default: "" },
-    messageDate: { type: Date, default: Date.now },
+    messageDate: { type: Date, default: Date.now() },
 });
 
 var messageModel = Mongoose.model('message', MessageSchema);
