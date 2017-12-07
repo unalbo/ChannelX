@@ -13,7 +13,7 @@ var UserSchema = new Mongoose.Schema({
     email:    { type: String, default: null},
     picture:  { type: String, default:  DEFAULT_USER_PICTURE},
     isOnline: { type: Boolean, default: false},
-    lastLogin:{ type: Date, default: null},
+    lastLogin:{ type: Date, default: Date.now()},
     channelID: [Mongoose.Schema.Types.ObjectId]
 });
 
