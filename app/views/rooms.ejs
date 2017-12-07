@@ -24,9 +24,14 @@
         
         <div class="room-create clearfix" style="border-bottom: 2px solid white;">
           <input type="text" name="title" autofocus placeholder ="Type a new channel">
-          <input type="text" name="ownerID" value=<%= users._id %>>
+          <input type="hidden" name="ownerID" value=<%= users._id %>>
+          <p>Period Start Date</p>
+          <input type="date" name="startDate">
+          <p>Period End Date</p>
+          <input type="date" name="endDate">
+          Is repeat?<br>
+          No<input type="range" name="isRepeat" min="0" max="1" style="width: 200px;">Yes
           <button>Create</button>
-          <button class="period-button">Set Period</button>
         </div> <!-- end room-create -->
 
         <div class="room-list">

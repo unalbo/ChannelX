@@ -8,7 +8,7 @@ var Mongoose  = require('mongoose');
  *
  */
 var PeriodSchema = new Mongoose.Schema({
-    ChannelID:   { type: Mongoose.Schema.Types.ObjectId, required: true },
+    ChannelID:   { type: Mongoose.Schema.Types.ObjectId, required: false },
     startTime:   { type: Date, required: true },
     endTime:     { type: Date, required: true },
     isRepeat:    { type: Boolean, default: false },

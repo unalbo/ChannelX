@@ -8,6 +8,7 @@ var randomString = require('random-string');
 var Room = require('../models/room');
 var Message = require('../models/message');
 var User = require('../models/user');
+var Period = require('../models/period');
 /**
  * Encapsulates all code for emitting and listening to socket events
  *
@@ -18,7 +19,7 @@ var ioEvents = function(io) {
 	io.of('/rooms').on('connection', function(socket) {
 
 		// Create a new room
-		socket.on('createRoom', function(title,ownerID) {
+		socket.on('createRoom', function(title,ownerID, start, end, isRepeat) {
 			Room.findOne({'title': new RegExp('^' + title + '$', 'i')}, function(err, room){
 				if(err) throw err;
 				if(room){
@@ -33,6 +34,8 @@ var ioEvents = function(io) {
 						if(err) throw err;
 						socket.emit('updateRoomsList', newRoom);
 						socket.broadcast.emit('updateRoomsList', newRoom);
+						var credentials = {'ChannelID': newRoom.id, 'startTime': start, 'endTime': end, 'isRepeat': isRepeat};
+						Period.create(credentials);
 					});
 				}
 			});

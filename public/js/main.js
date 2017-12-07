@@ -27,8 +27,22 @@ var app = {
         var roomTitle = inputEle.val().trim();
         var owner = $("input[name='ownerID']");
         var ownerID = owner.val().trim();
+
+        var startDate = $("input[name='startDate']");
+        var start = startDate.val().trim();
+        var endDate = $("input[name='endDate']");
+        var end = endDate.val().trim();
+        var isR = $("input[name='isRepeat']");
+        var isRepeat;
+        if(isR.val().trim() == "1"){
+          isRepeat = true;
+        }
+        if(isR.val().trim() == "0"){
+          isRepeat = false;
+        }
+
         if(roomTitle !== '') {
-          socket.emit('createRoom', roomTitle,ownerID);
+          socket.emit('createRoom', roomTitle,ownerID, start, end, isRepeat);
           inputEle.val('');
         }
       });
