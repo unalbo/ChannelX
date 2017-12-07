@@ -14,9 +14,13 @@ var findOne = function (data, callback){
 var findById = function (id, callback){
 	messageModel.findById(id, callback);
 }
+var find = function (data, callback){
+	messageModel.find(data, callback);
+}
 
 module.exports = { 
 	create, 
 	findOne, 
-	findById
+	findById,
+	find
 };

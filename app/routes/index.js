@@ -6,6 +6,7 @@ var passport 	= require('passport');
 
 var User = require('../models/user');
 var Room = require('../models/room');
+var Message = require('../models/message');
 
 // Home page
 router.get('/', function(req, res, next) {
@@ -57,24 +58,6 @@ router.post('/register', function(req, res, next) {
 		});
 	}
 });
-
-// Social Authentication routes
-// 1. Login via Facebook
-router.get('/auth/facebook', passport.authenticate('facebook'));
-router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-		successRedirect: '/rooms',
-		failureRedirect: '/',
-		failureFlash: true
-}));
-
-// 2. Login via Twitter
-router.get('/auth/twitter', passport.authenticate('twitter'));
-router.get('/auth/twitter/callback', passport.authenticate('twitter', {
-		successRedirect: '/rooms',
-		failureRedirect: '/',
-		failureFlash: true
-}));
-
 // Rooms
 router.get('/rooms', [User.isAuthenticated, function(req, res, next) {
 	Room.find(function(err, rooms){
@@ -94,7 +77,10 @@ router.get('/chat/:id', [User.isAuthenticated, function(req, res, next) {
 		if(!room){
 			return next(); 
 		}
-		res.render('chatroom', { user: req.user, room: room });
+		Message.find({'ChannelID':roomId},function(err, messages){
+			if(err) throw err;
+			res.render('chatroom', { user: req.user, room: room, messages});
+		});
 	});
 	
 }]);

@@ -29,6 +29,6 @@ module.exports = { Mongoose,
 		user: require('./schemas/user.js'),
 		room: require('./schemas/room.js'),
 		period: require('./schemas/period.js'),
-		message:  require('./schemas/period.js')
+		message:  require('./schemas/message.js')
 	}
 };
