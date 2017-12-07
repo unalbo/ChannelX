@@ -40,6 +40,12 @@ var findById = function (id, callback){
 	userModel.findById(id, callback);
 }
 
+var findByIdAndUpdate = function(id, data, callback){
+	console.log(data);
+	console.log(id);
+	userModel.findByIdAndUpdate(id, data,{ new: true }, callback);
+}
+
 
 /**
  * A middleware allows user to get access to pages ONLY if the user is already logged in.
@@ -56,6 +62,7 @@ var isAuthenticated = function (req, res, next) {
 module.exports = { 
 	create, 
 	//update,
+	findByIdAndUpdate,
 	findByIdAndUpdate,
 	findOne, 
 	findById, 
