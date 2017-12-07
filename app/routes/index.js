@@ -77,7 +77,7 @@ router.get('/chat/:id', [User.isAuthenticated, function(req, res, next) {
 		if(!room){
 			return next(); 
 		}
-		Message.find(function(err, messages){
+		Message.find({'ChannelID':roomId},function(err, messages){
 			if(err) throw err;
 			res.render('chatroom', { user: req.user, room: room, messages});
 		});
