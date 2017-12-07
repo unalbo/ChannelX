@@ -86,7 +86,7 @@ router.get('/rooms', [User.isAuthenticated, function(req, res, next) {
 	Room.find(function(err, rooms){
 		if(err) throw err;
 		User.findById(req.user.id,function(err, users){
-			User.findByIdAndUpdate(users.id, {'lastLogin':Date.now() }, function(err,users){});
+			User.findByIdAndUpdate(users.id, {'lastLogin':Date.now(), 'isOnline': true }, function(err,users){});
 			if(err) throw err;
 			res.render('rooms', { rooms, users });
 		});
@@ -121,6 +121,12 @@ router.get('/chat/:id', [User.isAuthenticated, function(req, res, next) {
 
 // Logout
 router.get('/logout', function(req, res, next) {
+	
+	// status of user change to "not online"
+	User.findById(req.user.id,function(err, users){
+			User.findByIdAndUpdate(users.id, {'isOnline': false }, function(err,users){});
+		});
+	
 	// remove the req.user property and clear the login session
 	req.logout();
 
