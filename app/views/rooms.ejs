@@ -46,11 +46,16 @@
         </div> <!-- end room-create -->
 
         <div class="room-list">
-          <div class="room-create clearfix"><input type="text" name="title" autofocus placeholder ="Verification Code:"></div>
+          <div class="room-create clearfix">
+            <input type="text" name="title" id="verCode" autofocus placeholder ="Verification Code:">
+            <button type="button" onclick="myFunction()">Verify</button>            
+          </div>
           <ul>
             <% if(rooms.length > 0) { %>
               <% rooms.forEach(function(room) { %>
+                <div id=<%= room.verificationCode %> style="display:none">
                   <a href="/chat/<%= room.id %>"><li class="room-item"><%= room.title %></li></a>
+                </div>
                 <% }); %>
             <% } else { %>
               <p class="message" style="text-align: center; padding: 0; margin: 0;">Create your first room!</p>
@@ -60,6 +65,11 @@
       </div> <!-- end room -->
 
     </div> <!-- end container -->
+    <script>
+      function myFunction() {
+          document.getElementById(document.getElementById("verCode").value).style.display='block';
+      }
+    </script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/main.js"></script>
