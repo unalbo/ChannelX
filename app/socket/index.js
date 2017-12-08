@@ -19,7 +19,7 @@ var ioEvents = function(io) {
 	io.of('/rooms').on('connection', function(socket) {
 
 		// Create a new room
-		socket.on('createRoom', function(title,ownerID, start, end, isRepeat) {
+		socket.on('createRoom', function(title,ownerID, start, end, isRepeat, days, en) {
 			Room.findOne({'title': new RegExp('^' + title + '$', 'i')}, function(err, room){
 				if(err) throw err;
 				if(room){
@@ -34,7 +34,7 @@ var ioEvents = function(io) {
 						if(err) throw err;
 						socket.emit('updateRoomsList', newRoom);
 						socket.broadcast.emit('updateRoomsList', newRoom);
-						var credentials = {'ChannelID': newRoom.id, 'startTime': start, 'endTime': end, 'isRepeat': isRepeat};
+						var credentials = {'ChannelID': newRoom.id, 'startTime': start, 'endTime': end, 'isRepeat': isRepeat, 'days': days, 'endDate': en};
 						Period.create(credentials);
 					});
 				}

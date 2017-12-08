@@ -2,14 +2,14 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Chat IO</title>
+    <title>ChannelX</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
   </head>
   <body>
     <div class="container clearfix" style="width: 600px;">
       <div class="controls" style="border: none; width: 100%;">
-          <a href="/myprofile" class="myprofile-btn" style="width: auto; padding: 13px; font-size: 12px; float:left;">My Profile</a>
+          <a href="/logout" class="logout-btn" style="width: auto; padding: 13px; font-size: 12px; float:left;">My Profile</a>
           <a href="/logout" class="logout-btn" style="width: auto; padding: 13px; font-size: 12px;">Logout</a>
       </div>
 
@@ -25,11 +25,22 @@
         <div class="room-create clearfix" style="border-bottom: 2px solid white;">
           <input type="text" name="title" autofocus placeholder ="Type a new channel">
           <input type="hidden" name="ownerID" value=<%= users._id %>>
-          <p>Period Start Date</p>
-          <input type="date" name="startDate">
-          <p>Period End Date</p>
-          <input type="date" name="endDate">
-          Is repeat?<br>
+          <p style="width: 200px; float: left">Period Start Time</p>
+          <p style="width: 200px; float: right">Period End Time</p>
+          <input type="time" name="startTime"  style="width: 200px; float: left">
+          <input type="time" name="endTime"  style="width: 200px; float: right"><br>
+          <select name="days" size="4" multiple style="margin-top: 35px; margin-bottom: 35px; margin-left: 205px; width: 150px; height: 150px;">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+          <p style=" margin-left: 215px;">Closing Date of Channel</p>
+          <input type="date" name="endDate" style="width: 250px; margin-bottom: 35px; margin-left: 175px;">
+          <br>Is repeat?<br>
           No<input type="range" name="isRepeat" min="0" max="1" style="width: 200px;">Yes
           <button>Create</button>
         </div> <!-- end room-create -->

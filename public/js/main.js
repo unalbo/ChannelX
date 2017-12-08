@@ -28,12 +28,16 @@ var app = {
         var owner = $("input[name='ownerID']");
         var ownerID = owner.val().trim();
 
-        var startDate = $("input[name='startDate']");
-        var start = startDate.val().trim();
-        var endDate = $("input[name='endDate']");
-        var end = endDate.val().trim();
+        var startTime = $("input[name='startTime']");
+        var start = startTime.val().trim();
+        var endTime = $("input[name='endTime']");
+        var end = endTime.val().trim();
         var isR = $("input[name='isRepeat']");
         var isRepeat;
+        var day = $("select[name='days']");
+        var days = day.val();
+        var endDate = $("input[name='endDate']");
+        var en = endDate.val().trim();
         if(isR.val().trim() == "1"){
           isRepeat = true;
         }
@@ -42,7 +46,7 @@ var app = {
         }
 
         if(roomTitle !== '') {
-          socket.emit('createRoom', roomTitle,ownerID, start, end, isRepeat);
+          socket.emit('createRoom', roomTitle,ownerID, start, end, isRepeat, days, en);
           inputEle.val('');
         }
       });
