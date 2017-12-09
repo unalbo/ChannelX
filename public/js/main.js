@@ -79,8 +79,6 @@ var app = {
 
           var textareaEle = $("textarea[name='message']");
           var messageContent = textareaEle.val().trim();
-          var inputMail = $("input[name='senderEmail']");
-          var senderEmail = inputMail.val().trim();
           if(messageContent !== '') {
             var message = { 
               content: messageContent, 
@@ -88,7 +86,7 @@ var app = {
               date: Date.now()
             };
 
-            socket.emit('newMessage', roomId, message, senderEmail);
+            socket.emit('newMessage', roomId, message);
             textareaEle.val('');
             app.helpers.addMessage(message);
           }

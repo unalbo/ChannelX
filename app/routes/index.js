@@ -34,7 +34,6 @@ router.post('/login', passport.authenticate('local', {
 router.post('/sendEmail', function(req, res, next) {
 	var roomId = req.body.room.trim();
 	var allMessages = [];
-	var allEmails = '';
 
 	Message.find(roomId, function(err, messages){
 		messages.forEach(function(message) {
@@ -42,8 +41,6 @@ router.post('/sendEmail', function(req, res, next) {
 				allMessages.push(
 					{Sender: message.SenderName, Message: message.message, Date: message.messageDate}
 				);
-				allEmails = allEmails + message.SenderEmail;
-				allEmails = allEmails + ', ';
 			}
 		});
 
@@ -57,7 +54,7 @@ router.post('/sendEmail', function(req, res, next) {
 
 		var mailOptions = {
 		  from: 'cchannelx@gmail.com',
-		  to: allEmails,
+		  to: 'cchannelx@gmail.com',
 		  subject: 'Sending Email using Node.js',
 		  text: JSON.stringify(allMessages)
 		};
