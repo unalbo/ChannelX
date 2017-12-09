@@ -161,13 +161,21 @@ var app = {
       message.username  = this.encodeHTML(message.username);
       message.content   = this.encodeHTML(message.content);
 
-      var html = `<li>
-                    <div class="message-data">
-                      <span class="message-data-name">${message.username}</span>
-                      <span class="message-data-time">${message.date}</span>
-                    </div>
-                    <div class="message my-message" dir="auto">${message.content}</div>
-                  </li>`;
+      if(user.isOnline){
+        html += `<li class="clearfix" id="user-${user._id}">
+                   <img src="${user.picture}" alt="${user.username}" />
+                   <div class="about">
+                      <div class="name">${user.username}</div>
+                      <div class="status"><i class="fa fa-circle online"></i> online</div>
+                   </div></li>`;
+      }else{
+        html += `<li class="clearfix" id="user-${user._id}">
+        <img src="${user.picture}" alt="${user.username}" />
+        <div class="about">
+           <div class="name">${user.username}</div>
+           <div class="status"><i class="fa fa-circle offline"></i> offline</div>
+        </div></li>`;
+      }
       $(html).hide().appendTo('.chat-history ul').slideDown(200);
 
       // Keep scroll bar down
