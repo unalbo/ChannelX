@@ -46,7 +46,7 @@ var ioEvents = function(io) {
 	io.of('/chatroom').on('connection', function(socket) {
 
 		// Join a chatroom
-		socket.on('join', function(roomId) {
+		socket.on('join', function(roomId, userid) {
 			Room.findById(roomId, function(err, room){
 				if(err) throw err;
 				if(!room){
@@ -78,6 +78,20 @@ var ioEvents = function(io) {
 						});
 					});
 				}
+				var userList = room.userID;
+				var checkId = false;
+				userList.forEach(function(ui) {
+					if(ui == userid){
+						checkId = true;
+					}
+				});
+				if(!checkId){
+					userList.push(userid);
+				}
+				Room.findByIdAndUpdate(roomId, { 
+						userID: userList
+					}, function(){
+				});
 			});
 		});
 

@@ -54,14 +54,14 @@ var app = {
     });
   },
 
-  chat: function(roomId, username){
+  chat: function(roomId, username, userID, userid){
     
     var socket = io('/chatroom', { transports: ['websocket'] });
 
       // When socket connects, join the current chatroom
       socket.on('connect', function () {
 
-        socket.emit('join', roomId);
+        socket.emit('join', roomId, userid);
 
         // Update users list upon emitting updateUsersList event
         socket.on('updateUsersList', function(users, clear) {
