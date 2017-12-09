@@ -11,6 +11,34 @@ body {
   -moz-osx-font-smoothing: grayscale;   
 }
 
+select {
+  margin-top: 10px;
+  border: 1px solid #111;
+  background: transparent;
+  width: 350px;
+  padding: 5px 35px 5px 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  height: 34px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(https://image.flaticon.com/icons/svg/60/60995.svg) 96% / 7% no-repeat #eee;
+}
+
+/* CAUTION: IE hackery ahead */
+select::-ms-expand { 
+    display: none; /* remove default arrow on ie10 and ie11 */
+}
+
+/* target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0) {
+    select {
+        background:none\9;
+        padding: 5px\9;
+    } 
+}
+
 .container {
   margin: 2% auto;
   width: 760px;
@@ -32,7 +60,7 @@ body {
   background: #6A6C75;
   width: 90%;
   font-size: 14px;
-}""
+}
 .users-list .fa-search {
   position: relative;
   left: -25px;
