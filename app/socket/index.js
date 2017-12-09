@@ -120,12 +120,12 @@ var ioEvents = function(io) {
 		});
 
 		// When a new message arrives
-		socket.on('newMessage', function(roomId, message) {
+		socket.on('newMessage', function(roomId, message, senderEmail) {
 
 			// No need to emit 'addMessage' to the current socket
 			// As the new message will be added manually in 'main.js' file
 			// socket.emit('addMessage', message);
-			Message.create({'ChannelID': roomId, 'SenderName': message.username, 'message': message.content, "messageDate": Date.now()}, function(err,newMessage){
+			Message.create({'ChannelID': roomId, 'SenderName': message.username, 'SenderEmail': senderEmail, 'message': message.content, "messageDate": Date.now()}, function(err,newMessage){
 				if(err) throw err;
 				});
             

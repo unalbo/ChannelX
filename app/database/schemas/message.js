@@ -10,6 +10,7 @@ var Mongoose  = require('mongoose');
 var MessageSchema = new Mongoose.Schema({
     ChannelID:   { type: Mongoose.Schema.Types.ObjectId, required: true },
     SenderName:    { type: String, required: true },
+    SenderEmail: { type: String },
     message:     { type: String, default: "" },
     messageDate: { type: Date, default: Date.now() },
 });
