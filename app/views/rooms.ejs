@@ -44,15 +44,15 @@
 
           <p style="width: 200px; float: left">Is repeat?</p>
           No<input type="range" name="isRepeat" min="0" max="1" style="width: 300px; float: justify; margin-bottom: 30px">Yes
-          <button>Create</button>
+          <button style="width: 550px; float: center">Create</button>
         </div> <!-- end room-create -->
 
         
         <div class="room-list">
           <h3 style="width: 550px; text-align: center; font-weight: bold">ENTER VERIFICATION CODE TO ENTER THE CHANNEL</h3>
           <div class="room-create clearfix">
-            <input type="text" name="title" id="verCode" autofocus placeholder ="Verification Code:">
-            <button type="button" onclick="myFunction()">Verify</button>            
+            <input type="text" name="title" id="verCode" style="width: 500px; margin-bottom: 22px" autofocus placeholder ="Verification Code:">
+            <button type="button" onclick="myFunction()" style="width: 500px">Verify</button>            
           </div>
           <ul>
             <% if(rooms.length > 0) { %>
