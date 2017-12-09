@@ -3,6 +3,7 @@
 var express	 	= require('express');
 var router 		= express.Router();
 var passport 	= require('passport');
+var nodemailer  = require('nodemailer');
 
 var User = require('../models/user');
 var Room = require('../models/room');
@@ -29,6 +30,48 @@ router.post('/login', passport.authenticate('local', {
 	failureRedirect: '/',
 	failureFlash: true
 }));
+
+router.post('/sendEmail', function(req, res, next) {
+	var roomId = req.body.room.trim();
+	var allMessages = [];
+
+	Message.find(roomId, function(err, messages){
+		messages.forEach(function(message) {
+			if(message.ChannelID == roomId){
+				allMessages.push(
+					{Sender: message.SenderName, Message: message.message, Date: message.messageDate}
+				);
+			}
+		});
+
+		var transporter = nodemailer.createTransport({
+		  service: 'gmail',
+		  auth: {
+		    user: 'cchannelx@gmail.com',
+		    pass: 'admin1234;'
+		  }
+		});
+
+		var mailOptions = {
+		  from: 'cchannelx@gmail.com',
+		  to: 'cchannelx@gmail.com',
+		  subject: 'Sending Email using Node.js',
+		  text: JSON.stringify(allMessages)
+		};
+
+		transporter.sendMail(mailOptions, function(error, info){
+		  if (error) {
+		    console.log(error);
+		  } else {
+		    console.log('Email sent: ' + info.response);
+		  }
+		});
+
+	});
+
+	var link = "/chat/" + roomId;
+	res.redirect(link);
+});
 
 // Register via username and password
 router.post('/register', function(req, res, next) {
