@@ -34,6 +34,8 @@ router.post('/login', passport.authenticate('local', {
 router.post('/sendEmail', function(req, res, next) {
 	var roomId = req.body.room.trim();
 	var allMessages = [];
+	var allEmails= '';
+	var counter = 0;
 
 	Message.find(roomId, function(err, messages){
 		messages.forEach(function(message) {
@@ -44,29 +46,43 @@ router.post('/sendEmail', function(req, res, next) {
 			}
 		});
 
-		var transporter = nodemailer.createTransport({
-		  service: 'gmail',
-		  auth: {
-		    user: 'cchannelx@gmail.com',
-		    pass: 'admin1234;'
-		  }
+		Room.findById(roomId, function(err, room) {
+			room.userID.forEach(function(id) {
+				User.findById(id, function(err, user){
+					allEmails = allEmails + user.email;
+					allEmails = allEmails + ', ';
+					counter++;
+					if(counter == room.userID.length){
+						console.log("all Emails: ");
+						console.log(allEmails);
+
+						var transporter = nodemailer.createTransport({
+						  service: 'gmail',
+						  auth: {
+						    user: 'cchannelx@gmail.com',
+						    pass: 'admin1234;'
+						  }
+						});
+
+						//var toFormat = 'cchannelx@gmail.com, bora.unal.13@gmail.com';
+						var mailOptions = {
+						  from: 'cchannelx@gmail.com',
+						  to: allEmails,
+						  subject: 'All Posts',
+						  text: JSON.stringify(allMessages)
+						};
+
+						transporter.sendMail(mailOptions, function(error, info){
+						  if (error) {
+						    console.log(error);
+						  } else {
+						    console.log('Email sent: ' + info.response);
+						  }
+						});
+					}
+				});
+			});
 		});
-
-		var mailOptions = {
-		  from: 'cchannelx@gmail.com',
-		  to: 'cchannelx@gmail.com',
-		  subject: 'Sending Email using Node.js',
-		  text: JSON.stringify(allMessages)
-		};
-
-		transporter.sendMail(mailOptions, function(error, info){
-		  if (error) {
-		    console.log(error);
-		  } else {
-		    console.log('Email sent: ' + info.response);
-		  }
-		});
-
 	});
 
 	var link = "/chat/" + roomId;
