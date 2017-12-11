@@ -65,13 +65,13 @@ var app = {
         socket.emit('join', roomId, userid);
 
         // Update users list upon emitting updateUsersList event
-        socket.on('updateUsersList', function(users, clear) {
+        socket.on('updateUsersList', function(users, clear, offlines) {
 
           $('.container p.message').remove();
           if(users.error != null){
             $('.container').html(`<p class="message error">${users.error}</p>`);
           }else{
-            app.helpers.updateUsersList(users, clear);
+            app.helpers.updateUsersList(users, clear, offlines);
           }
         });
 
@@ -129,7 +129,7 @@ var app = {
     },
 
     // Update users list
-    updateUsersList: function(users, clear){
+    updateUsersList: function(users, clear, offlines){
         if(users.constructor !== Array){
           users = [users];
         }
@@ -142,6 +142,15 @@ var app = {
                      <div class="about">
                         <div class="name">${user.username}</div>
                         <div class="status"><i class="fa fa-circle online"></i> online</div>
+                     </div></li>`;
+        }
+        for(var user of offlines) {
+          user.username = this.encodeHTML(user.username);
+          html += `<li class="clearfix" id="user-${user._id}">
+                     <img src="${user.picture}" alt="${user.username}" />
+                     <div class="about">
+                        <div class="name">${user.username}</div>
+                        <div class="status"><i class="fa fa-circle offline"></i> offline</div>
                      </div></li>`;
         }
 

@@ -59,7 +59,28 @@ var ioEvents = function(io) {
 					if(socket.request.session.passport == null){
 						return;
 					}
-
+					var offlineList = [];
+					var onlineList = [];
+					room.userID.forEach(function(user_id){
+						User.findOne({'_id': user_id}, function(err, user){
+							if(user.isOnline){
+								if(onlineList.find(online => (online["username"] === user.username))){
+									console.log("exist");
+								}
+								else{
+									onlineList.push(user);								
+								}
+							}
+							else{
+								if(offlineList.find(offline => (offline["username"] === user.username))){
+									console.log("exist");
+								}
+								else{
+									offlineList.push(user);								
+								}
+							}
+						});
+					});
 					Room.addUser(room, socket, function(err, newRoom){
 
 						// Join the room channel
@@ -69,7 +90,7 @@ var ioEvents = function(io) {
 							if(err) throw err;
 							
 							// Return list of all user connected to the room to the current user
-							socket.emit('updateUsersList', users, true);
+							socket.emit('updateUsersList', onlineList, true, offlineList);
 
 							// Return the current user to other connecting sockets in the room 
 							// ONLY if the user wasn't connected already to the current room
