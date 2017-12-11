@@ -38,6 +38,7 @@ var app = {
         var days = day.val();
         var endDate = $("input[name='endDate']");
         var en = endDate.val().trim();
+        var isActive = true;
         if(isR.val().trim() == "1"){
           isRepeat = true;
         }
@@ -46,7 +47,7 @@ var app = {
         }
 
         if(roomTitle !== '') {
-          socket.emit('createRoom', roomTitle,ownerID, start, end, isRepeat, days, en);
+          socket.emit('createRoom', roomTitle,ownerID, start, end, isRepeat, days, en, isActive);
           inputEle.val('');
         }
       });

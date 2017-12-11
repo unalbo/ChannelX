@@ -13,7 +13,8 @@ var RoomSchema = new Mongoose.Schema({
     title:       { type: String, required: true },
     connections: { type: [{ userId: String, socketId: String }]},
     userID: [Mongoose.Schema.Types.ObjectId],
-    verificationCode: { type: String, required: true }
+    verificationCode: { type: String, required: true },
+    isActive: 	 { type: Boolean }
 });
 
 var roomModel = Mongoose.model('room', RoomSchema);

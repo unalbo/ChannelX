@@ -36,6 +36,7 @@ router.post('/sendEmail', function(req, res, next) {
 	var allMessages = [];
 	var allEmails= '';
 	var counter = 0;
+
 	Message.find({'ChannelID': roomId}, function(err, messages){
 		messages.forEach(function(message) {
 			if(message.ChannelID == roomId){
@@ -52,7 +53,6 @@ router.post('/sendEmail', function(req, res, next) {
 					allEmails = allEmails + ', ';
 					counter++;
 					if(counter == room.userID.length){
-						console.log("all Emails: ");
 						console.log(allEmails);
 
 						var transporter = nodemailer.createTransport({

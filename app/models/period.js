@@ -15,8 +15,18 @@ var findById = function (id, callback){
 	periodModel.findById(id, callback);
 }
 
+var find = function (data, callback){
+	periodModel.find(data, callback);
+}
+
+var remove = function(data, callback){
+	periodModel.remove(data, callback);
+}
+
 module.exports = { 
-	create, 
+	create,
+	find, 
 	findOne, 
-	findById
+	findById,
+	remove
 };

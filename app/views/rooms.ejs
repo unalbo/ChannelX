@@ -57,9 +57,11 @@
           <ul>
             <% if(rooms.length > 0) { %>
               <% rooms.forEach(function(room) { %>
-                <div id=<%= room.verificationCode %> style="display:none">
-                  <a href="/chat/<%= room.id %>"><li class="room-item"><%= room.title %></li></a>
-                </div>
+                <% if(room.isActive == true) { %>
+                  <div id=<%= room.verificationCode %> style="display:none">
+                    <a href="/chat/<%= room.id %>"><li class="room-item"><%= room.title %></li></a>
+                  </div>
+                  <% } %>
                 <% }); %>
             <% } else { %>
               <p class="message" style="text-align: center; padding: 0; margin: 0;">Create your first room!</p>
