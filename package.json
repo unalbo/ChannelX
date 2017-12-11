@@ -1,6 +1,7 @@
 {
   "name": "chat.io",
   "version": "1.0.0",
+  "private": true,
   "description": "A Real Time Chat Application built using Node.js, Express, Mongoose, Socket.io, Passport, & Redis.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -33,6 +34,10 @@
     "redis": "^2.6.2",
     "socket.io": "^2.0.3",
     "socket.io-redis": "^5.1.0",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "zombie": "2.0.0-alpha11"
+  },
+  "devDependencies": {
+    "zombie": "^4.0.13"
   }
 }

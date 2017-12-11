@@ -7,6 +7,7 @@ var path 		= require('path');
 var bodyParser 	= require('body-parser');
 var flash 		= require('connect-flash');
 var nodemailer  = require('nodemailer');
+var http 		= require('http');
 
 // Chat application components
 var routes 		= require('./app/routes');
@@ -119,3 +120,11 @@ app.use(function(req, res, next) {
 });
 
 ioServer.listen(port);
+
+module.exports = app;
+if (!module.parent) {
+	//app.listen(4000);
+  	http.createServer(app).listen(process.env.PORT, function(){
+    console.log("Server listening on port " + app.get('port'));
+  });
+}
