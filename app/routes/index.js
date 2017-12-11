@@ -36,8 +36,7 @@ router.post('/sendEmail', function(req, res, next) {
 	var allMessages = [];
 	var allEmails= '';
 	var counter = 0;
-
-	Message.find(roomId, function(err, messages){
+	Message.find({'ChannelID': roomId}, function(err, messages){
 		messages.forEach(function(message) {
 			if(message.ChannelID == roomId){
 				allMessages.push(
